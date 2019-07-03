@@ -12,6 +12,7 @@ import AboutPage from '../page/about/AboutPage'
 import AboutMePage from '../page/about/AboutMePage'
 import CustomKeyPage from '../page/CustomKeyPage'
 import SortKeyPage from '../page/SortKeyPage'
+import SearchPage from '../page/SearchPage'
 import FetchDemoPage from '../page/FetchDemoPage'
 import AsyncStorageDemoPage from '../page/AsyncStorageDemoPage'
 import DataStoreDemoPage from '../page/DataStoreDemoPage'
@@ -66,6 +67,12 @@ const MainNavigator = createStackNavigator({
   },
   SortKeyPage: {
     screen: SortKeyPage,
+    navigationOptions: {
+      header: null, // 可以通过将header设为Null 隐藏标题。
+    }
+  },
+  SearchPage: {
+    screen: SearchPage,
     navigationOptions: {
       header: null, // 可以通过将header设为Null 隐藏标题。
     }

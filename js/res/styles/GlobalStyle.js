@@ -1,10 +1,11 @@
-import {DeviceInfo} from "react-native";
+import {DeviceInfo, Dimensions} from "react-native";
 
 /**
  * 全局样式
  * @type {string}
  */
 const BACKGROUND_COLOR = '#f3f3f4';
+const {height, width} = Dimensions.get('window')
 export default {
   line: {
     height: 0.5,
@@ -21,4 +22,5 @@ export default {
   backgroundColor:BACKGROUND_COLOR,
   nav_bar_height_ios: 44,
   nav_bar_height_android: 50,
+  window_height: height,
 }

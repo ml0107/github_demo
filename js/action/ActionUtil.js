@@ -3,15 +3,16 @@ import ProjectModel from "../model/ProjectModel";
 import Utils from "../util/Utils";
 
 /**
- * 处理下拉刷新的数据
+ * 处理数据
  * @param actionType
  * @param dispatch
  * @param storeName
  * @param data
  * @param pageSize
  * @param favoriteDao
+ * @param params 其他参数
  */
-export function handleData(actionType, dispatch, storeName, data, pageSize, favoriteDao) {
+export function handleData(actionType, dispatch, storeName, data, pageSize, favoriteDao,params) {
   let fixItems = [];
   // console.log(data);
   if (data && data.data) {
@@ -29,7 +30,8 @@ export function handleData(actionType, dispatch, storeName, data, pageSize, favo
       items: fixItems,
       projectModels: projectModels,
       storeName,
-      pageIndex: 1
+      pageIndex: 1,
+      ...params
     })
   })
 }
@@ -55,8 +57,11 @@ export async function _projectModels(showItems, favoriteDao, callback) {
   for (let i = 0, len = showItems.length; i < len; i++) {
     projectModels.push(new ProjectModel(showItems[i], Utils.checkFavorite(showItems[i], keys)));
   }
-  if (typeof callback === 'function') {
-    callback(projectModels);
-  }
-
+  doCallBack(callback,projectModels)
 }
+
+export const doCallBack = (callBack, object) => {
+  if(typeof callBack === 'function'){
+    callBack(object)
+  }
+};

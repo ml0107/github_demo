@@ -7,7 +7,7 @@
  */
 
 import React, {Component} from 'react';
-import {StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator} from 'react-native';
+import {StyleSheet, Text, View, FlatList, RefreshControl, ActivityIndicator, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import actions from '../action/index'
 
@@ -25,6 +25,7 @@ import EventBus from "react-native-event-bus";
 import EventTypes from "../util/EventTypes";
 import {FLAG_LANGUAGE} from "../expand/dao/LanguageDao";
 import LanguageDao from "../expand/dao/LanguageDao";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars'; // 排序方式 点赞数
@@ -64,7 +65,7 @@ class PopularPage extends Component {
 
   _getTabs() {
     const tabs = {};
-    const {keys,theme} = this.props;
+    const {keys, theme} = this.props;
     console.log(keys);
     keys.forEach((item, index) => {
       if (item.checked) {
@@ -79,8 +80,30 @@ class PopularPage extends Component {
     return tabs
   }
 
+  renderRightButton() {
+    const {theme} = this.props;
+    return <TouchableOpacity
+      onPress={() => {
+        NavigationUtil.goPage({theme}, 'SearchPage')
+      }}>
+
+      <View style={{padding: 5, marginRight: 8}}>
+        <Ionicons
+          name={'ios-search'}
+          size={24}
+          style={{
+            marginRight: 8,
+            alignSelf: 'center',
+            color: 'white'
+          }}
+        />
+      </View>
+
+    </TouchableOpacity>
+  }
+
   render() {
-    const {keys,theme} = this.props;
+    const {keys, theme} = this.props;
     let statusBar = {
       backgroundColor: theme.themeColor,
       barStyle: 'light-content'
@@ -89,6 +112,7 @@ class PopularPage extends Component {
       title={'最热'}
       statusBar={statusBar}
       style={theme.styles.navBar}
+      rightButton={this.renderRightButton()}
     />;
     const TabNavigator = keys.length ? createMaterialTopTabNavigator(
       this._getTabs(), {
@@ -204,7 +228,7 @@ class PopularTab extends Component {
         NavigationUtil.goPage({
           projectModel: item,
           flag: FLAG_STORAGE.flag_popular,
-          theme:theme,
+          theme: theme,
           callback
         }, 'DetailPage')
       }}
@@ -229,11 +253,11 @@ class PopularTab extends Component {
       <View style={styles.container}>
         <FlatList
           data={store.projectModels}
-          renderItem={data => this.renderItem(data)}ƒ
+          renderItem={data => this.renderItem(data)} ƒ
           keyExtractor={item => "" + item.item.id}
           refreshControl={
             <RefreshControl
-              title={'loading'}ƒ
+              title={'loading'} ƒ
               titleColor={theme.themeColor}
               colors={[theme.themeColor]}
               refreshing={store.isLoading}

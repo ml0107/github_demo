@@ -3,6 +3,7 @@ import {onRefreshPopular,onLoadMorePopular,onFlushPopularFavorite} from './popul
 import {onRefreshTrending,onLoadMoreTrending,onFlushTrendingFavorite} from './trending'
 import {onLoadFavoriteData} from './favorite'
 import {onLoadLanguage} from './language'
+import {onSearch,onLoadMoreSearch,onSearchCancel} from './search'
 
 // 根action
 export default {
@@ -15,5 +16,8 @@ export default {
   onLoadMoreTrending,
   onFlushTrendingFavorite,
   onLoadFavoriteData,
-  onLoadLanguage
+  onLoadLanguage,
+  onSearch,
+  onLoadMoreSearch,
+  onSearchCancel,
 }
